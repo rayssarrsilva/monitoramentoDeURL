@@ -29,5 +29,27 @@ services:
     env_file:
       - .env
 
+  worker:
+    build: .
+    command: celery -A monitoria worker --loglevel=info
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+      - redis
+    env_file:
+      - .env
+
+  beat:
+    build: .
+    command: celery -A monitoria beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+      - redis
+    env_file:
+      - .env
+
 volumes:
   postgres_data:

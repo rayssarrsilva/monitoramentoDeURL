@@ -29,8 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-# Celery + Redis
-CELERY_BROKER_URL = 'redis://redis:6379/0'
 
 # Application definition
 
@@ -133,8 +131,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler' #obrigatória para o beat funcionar com o banco de dados.
 
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler' #obrigatória para o beat funcionar com o banco de dados.
+CELERY_BROKER_URL = 'redis://redis:6379/0'
 
 INSTALLED_APPS += ['rest_framework.authtoken']
 
