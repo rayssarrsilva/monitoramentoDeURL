@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - InvestigaWeb</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans min-h-screen flex flex-col">
+
+  <!-- 🔝 Cabeçalho -->
+  <header class="flex justify-between items-center px-8 py-6 bg-gray-900 shadow-md">
+    <h1 class="text-2xl font-bold text-blue-400">Painel InvestigaWeb</h1>
+    <a href="/logout/" class="text-sm text-gray-300 hover:text-red-400 transition">Sair</a>
+  </header>
+
+  <!-- 📊 Conteúdo principal -->
+  <main class="flex-grow px-6 py-10 max-w-6xl mx-auto">
+
+    <!-- 👋 Saudação e resumo -->
+    <h2 class="text-3xl font-bold mb-8 text-blue-400">Bem-vinda, Rayssa!</h2>
+
+    <!-- 🔢 Resumo numérico dos sites -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-gray-800 p-6 rounded-xl shadow text-center">
+        <p class="text-sm text-gray-400">Total de URLs Monitoradas</p>
+        <p class="text-3xl font-bold text-blue-300">{{ total }}</p>
+      </div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow text-center">
+        <p class="text-sm text-gray-400">Online</p>
+        <p class="text-3xl font-bold text-green-400">{{ online }}</p>
+      </div>
+      <div class="bg-gray-800 p-6 rounded-xl shadow text-center">
+        <p class="text-sm text-gray-400">Offline</p>
+        <p class="text-3xl font-bold text-red-400">{{ offline }}</p>
+      </div>
+    </div>
+
+    <!-- 📂 Acesso rápido às funcionalidades -->
+    <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+        <a href="/urls/criar/" class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition block">
+            <h3 class="text-xl font-semibold text-blue-400"> Cadastrar nova URL</h3>
+            <p class="text-gray-300 text-sm">Adicione um novo site à sua lista de monitoramento</p>
+        </a>
+
+      <a href="/urls/" class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition block">
+        <h3 class="text-xl font-semibold text-blue-400"> Histórico de Acessos</h3>
+        <p class="text-gray-300 text-sm">Gerencie suas URLs monitoradas</p>
+      </a>
+
+      <a href="/notificacoes/" class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition block">
+        <h3 class="text-xl font-semibold text-blue-400"> Notificações</h3>
+        <p class="text-gray-300 text-sm">Veja alertas de queda de sites</p>
+      </a>
+
+
+    </div>
+
+  </main>
+
+</body>
+</html>

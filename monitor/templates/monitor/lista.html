@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de URLs - InvestigaWeb</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans min-h-screen flex flex-col">
+
+  <!-- 🔝 Cabeçalho -->
+  <header class="flex justify-between items-center px-8 py-6 bg-gray-900 shadow-md">
+    <h1 class="text-2xl font-bold text-blue-400">InvestigaWeb</h1>
+    <a href="/dashboard/" class="text-sm text-gray-300 hover:text-blue-400 transition">← Voltar ao Painel</a>
+  </header>
+
+  <!-- 📋 Lista de URLs -->
+  <main class="flex-grow px-6 py-10 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-blue-400 mb-6">Minhas URLs Monitoradas</h2>
+
+    {% if urls %}
+      <div class="grid grid-cols-1 gap-6">
+        {% for url in urls %}
+          <div class="bg-gray-800 p-6 rounded-xl shadow flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+            <div>
+              <h3 class="text-lg font-semibold text-blue-300 break-all">
+                {{ url.url|cut:"https://"|cut:"http://" }}
+              </h3>
+              <p class="text-sm text-gray-400">Criada em: {{ url.DataCriacao|date:"d/m/Y" }}</p>
+              <p class="text-sm mt-1">
+                Status: 
+                {% if url.statusAtual == "online" %}
+                  <span class="text-green-400 font-semibold">Online</span>
+                {% elif url.statusAtual == "offline" %}
+                  <span class="text-red-400 font-semibold">Offline</span>
+                {% else %}
+                  <span class="text-yellow-400 font-semibold">Desconhecido</span>
+                {% endif %}
+              </p>
+            </div>
+            <div class="flex gap-4">
+              <a href="{{ url.url }}" target="_blank" rel="noopener noreferrer"
+                 class="text-sm text-blue-400 hover:underline">Abrir</a>
+              <a href="/urls/{{ url.id }}/excluir/" class="text-sm bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Excluir</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-gray-400">Nenhuma URL cadastrada ainda.</p>
+    {% endif %}
+  </main>
+
+</body>
+</html>

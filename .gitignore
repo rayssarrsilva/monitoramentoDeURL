@@ -1,0 +1,29 @@
+# Django
+*.pyc
+__pycache__/
+db.sqlite3
+.env
+*.log
+
+# VSCode
+.vscode/
+
+# Docker
+*.pid
+volumes/
+tmp/
+
+# Migrations
+**/migrations/*.pyc
+**/migrations/__pycache__/
+**/migrations/*.log
+
+# Sistema
+*.DS_Store
+*.swp
+*.bak
+*.idea/
+
+# Static
+/staticfiles/
+/media/

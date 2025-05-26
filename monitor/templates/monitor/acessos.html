@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Histórico de Acessos - InvestigaWeb</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans min-h-screen flex flex-col">
+
+  <!-- 🔝 Cabeçalho -->
+  <header class="flex justify-between items-center px-8 py-6 bg-gray-900 shadow-md">
+    <h1 class="text-2xl font-bold text-blue-400">InvestigaWeb</h1>
+    <a href="/dashboard/" class="text-sm text-gray-300 hover:text-blue-400 transition">← Voltar ao Painel</a>
+  </header>
+
+  <!-- 📂 Histórico de Acessos -->
+  <main class="flex-grow px-6 py-10 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-blue-400 mb-6">Histórico de Acessos</h2>
+
+    {% if acessos %}
+      <ul class="space-y-4">
+        {% for acesso in acessos %}
+          <li class="bg-gray-800 p-5 rounded-xl shadow">
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-blue-300 font-semibold break-all">🔗 {{ acesso.url.url }}</p>
+                <p class="text-sm text-gray-400">Acessado em: {{ acesso.data|date:"d/m/Y H:i" }}</p>
+              </div>
+              <span class="text-sm px-3 py-1 rounded bg-gray-700 text-white">
+                Status:
+                {% if acesso.status == "online" %}
+                  <span class="text-green-400 font-semibold">Online</span>
+                {% else %}
+                  {% if acesso.status == "offline" %}
+                    <span class="text-red-400 font-semibold">Offline</span>
+                  {% else %}
+                    <span class="text-yellow-400 font-semibold">Desconhecido</span>
+                  {% endif %}
+                {% endif %}
+              </span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-gray-400">Nenhum acesso registrado até o momento.</p>
+    {% endif %}
+  </main>
+
+</body>
+</html>

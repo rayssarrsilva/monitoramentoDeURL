@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Notificações - InvestigaWeb</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white font-sans min-h-screen flex flex-col">
+
+  <!-- 🔝 Cabeçalho -->
+  <header class="flex justify-between items-center px-8 py-6 bg-gray-900 shadow-md">
+    <h1 class="text-2xl font-bold text-blue-400">Painel de Notificações</h1>
+    <a href="/dashboard/" class="text-sm text-gray-300 hover:text-blue-400 transition">← Voltar</a>
+  </header>
+
+  <!-- 🔔 Conteúdo -->
+  <main class="flex-grow px-6 py-10 max-w-5xl mx-auto">
+    {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="bg-green-700 text-white p-3 rounded shadow">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if notificacoes %}
+      <div class="space-y-6">
+        {% for n in notificacoes %}
+          <div class="bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-700 hover:border-blue-500 transition">
+            <div class="flex justify-between items-center mb-2">
+              <h2 class="text-lg font-semibold text-white truncate">🔗 {{ n.url.url }}</h2>
+              <span class="text-sm text-gray-400">📅 {{ n.enviado_em|date:"d/m/Y H:i" }}</span>
+            </div>
+            <p class="text-blue-400 font-medium mb-2">{{ n.mensagem }}</p>
+            
+            <div class="text-sm text-gray-300 space-y-1">
+              <p><strong>Frequência:</strong> a cada {{ n.url.frequencia_minutos }} minutos</p>
+              <p><strong>Dias:</strong> {{ n.url.dias_da_semana|default:"Nenhum selecionado" }}</p>
+              <p><strong>Notificações ativas:</strong> {{ n.url.receber_notificacoes|yesno:"Sim,Não" }}</p>
+            </div>
+          </div>
+          <a href="{% url 'desativar_notificacoes' n.url.id %}" 
+          class="text-sm text-red-400 hover:text-red-500 ml-4 underline">
+          Desativar Notificações
+
+          </a>
+              <a href="{% url 'reativar_notificacoes' n.url.id %}" 
+              class="text-xs bg-green-399 hover:bg-green-700 px-3 py-1 rounded text-white">
+              Reativar Notificação
+          </a>
+
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="text-center text-gray-400 mt-20 text-lg">
+        Nenhuma notificação disponível no momento.
+      </div>
+    {% endif %}
+  </main>
+
+</body>
+</html>
