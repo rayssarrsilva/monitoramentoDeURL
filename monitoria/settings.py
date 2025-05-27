@@ -145,3 +145,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+import os
+
+ALLOWED_HOSTS = ['*']
+
+# Segurança para produção simples:
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# Caminho correto para arquivos estáticos no Render
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+import django_heroku
+django_heroku.settings(locals())
