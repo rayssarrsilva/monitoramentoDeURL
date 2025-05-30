@@ -4,58 +4,82 @@
   <meta charset="UTF-8">
   <title>Login - InvestigaWeb</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            pulseSlow: 'pulse 4s infinite',
+            flicker: 'flicker 3s infinite'
+          },
+          boxShadow: {
+            neon: '0 0 20px #3b82f6',
+          },
+        }
+      }
+    }
+  </script>
   {% load widget_tweaks %}
 </head>
 <body class="bg-black text-white font-sans min-h-screen flex flex-col">
 
   <!-- 🔝 Cabeçalho -->
-  <header class="flex justify-between items-center px-8 py-6 bg-gray-900 shadow-md">
-    <h1 class="text-2xl font-bold text-blue-400">InvestigaWeb</h1>
-    <a href="/" class="text-sm text-gray-300 hover:text-blue-400 transition">← Voltar à página inicial</a>
+  <header class="flex justify-between items-center px-10 py-6 bg-gray-900 shadow-md border-b border-blue-600">
+    <h1 class="text-3xl font-extrabold text-blue-400 tracking-wider animate-flicker">InvestigaWeb</h1>
+    <a href="/" class="text-sm text-gray-300 hover:text-blue-400 hover:underline transition">← Voltar à página inicial</a>
   </header>
 
   <!-- 🔐 Formulário de login -->
-  <main class="flex-grow flex items-center justify-center py-10 px-4">
-    <div class="bg-gray-800 rounded-2xl p-10 max-w-md w-full shadow-lg border border-gray-700">
+  <main class="flex-grow flex items-center justify-center py-14 px-4">
+    <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-12 max-w-md w-full shadow-neon border border-blue-600 animate-pulseSlow">
 
-      <h2 class="text-3xl font-bold text-center text-blue-400 mb-8">Entrar na sua conta</h2>
+      <h2 class="text-4xl font-extrabold text-center text-blue-400 mb-10 tracking-wide">Acesso Ultrasseguro</h2>
 
-      <form method="post" class="space-y-6">
+      <form method="post" class="space-y-8">
         {% csrf_token %}
 
         <!-- Campo: username -->
         <div>
-          <label class="block mb-1 text-sm text-gray-300">Usuário</label>
-          {{ form.username|add_class:"w-full bg-gray-900 text-white rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+          <label class="block mb-2 text-sm font-medium text-blue-300">Nome de Usuário</label>
+          {{ form.username|add_class:"w-full bg-black text-white border border-blue-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner" }}
           {% if form.username.errors %}
-            <p class="text-red-400 text-sm mt-1">{{ form.username.errors.0 }}</p>
+            <p class="text-red-400 text-sm mt-2 italic">{{ form.username.errors.0 }}</p>
           {% endif %}
         </div>
 
         <!-- Campo: password -->
         <div>
-          <label class="block mb-1 text-sm text-gray-300">Senha</label>
-          {{ form.password|add_class:"w-full bg-gray-900 text-white rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+          <label class="block mb-2 text-sm font-medium text-blue-300">Senha</label>
+          {{ form.password|add_class:"w-full bg-black text-white border border-blue-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner" }}
           {% if form.password.errors %}
-            <p class="text-red-400 text-sm mt-1">{{ form.password.errors.0 }}</p>
+            <p class="text-red-400 text-sm mt-2 italic">{{ form.password.errors.0 }}</p>
           {% endif %}
         </div>
 
         <!-- Botão de login -->
         <button type="submit"
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded shadow transition">
-          Entrar
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-neon transition-all duration-300 tracking-wider">
+          Acessar Conta
         </button>
       </form>
 
-      <p class="text-center text-sm text-gray-400 mt-6">
-        Ainda não tem conta?
-        <a href="/registrar/" class="text-blue-400 hover:underline">Registrar-se</a>
+      <p class="text-center text-sm text-gray-400 mt-8">
+        Não tem conta?
+        <a href="/registrar/" class="text-blue-400 hover:underline">Registre-se agora</a>
       </p>
 
     </div>
   </main>
 
+  <style>
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 24%, 55% {
+        opacity: 0.3;
+      }
+    }
+  </style>
 </body>
 </html>
-
