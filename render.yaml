@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: monitoria-web
+    env: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: DEBUG
+        value: False
+      - key: SECRET_KEY
+        value: sua_chave_segura_aqui
+      - key: DATABASE_URL
+        fromDatabase:
+          name: monitoria-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: monitoria-redis
+          type: redis
+
+databases:
+  - name: monitoria-db
+
+  # Redis como serviço adicional
+  - name: monitoria-redis
+    type: redis

@@ -9,6 +9,10 @@ COPY . /code/
 
 WORKDIR /code/monitoria  
 
-ENV PORT=8000
 EXPOSE 8000
-CMD ["gunicorn", "monitoria.wsgi:application", "--bind", "0.0.0.0:8000"]
+
+CMD bash -c "
+  python manage.py migrate &&
+  python manage.py collectstatic --noinput &&
+  gunicorn monitoria.wsgi:application --bind 0.0.0.0:${PORT}
+"
