@@ -14,7 +14,11 @@ from django.contrib import messages
 
 @login_required
 def lista_urls(request):
-    urls = Url.objects.filter(usuario = request.user) #lista por ORM, mostrando apenas as urls do user
+    urls = Url.objects.filter(usuario=request.user)
+
+    for url in urls:
+        url.dias_lista = url.dias_da_semana.split(',') if url.dias_da_semana else []
+
     return render(request, 'monitor/lista.html', {'urls': urls})
 
 
