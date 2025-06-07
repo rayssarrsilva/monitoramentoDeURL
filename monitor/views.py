@@ -96,7 +96,7 @@ def dashboard(request):
 
 def registrar(request):
     if request.method == 'POST':
-        form = UserCreationForm(request, data=request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
