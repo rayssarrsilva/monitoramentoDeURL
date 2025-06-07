@@ -6,27 +6,27 @@
   <script src="https://cdn.tailwindcss.com"></script>
   {% load widget_tweaks %}
 </head>
-<body class="bg-black text-white font-sans min-h-screen flex flex-col">
+<body class="bg-gradient-to-b from-gray-950 via-gray-900 to-black text-white font-sans min-h-screen flex flex-col">
 
   <!-- 🔝 Cabeçalho -->
-  <header class="flex justify-between items-center px-8 py-6 bg-gray-900 shadow-md">
-    <h1 class="text-2xl font-bold text-blue-400">Monitora Já</h1>
-    <a href="/urls/" class="text-sm text-gray-300 hover:text-blue-400 transition">← Voltar para lista</a>
+  <header class="flex justify-between items-center px-8 py-6 bg-gray-900 shadow-lg border-b border-gray-800">
+    <h1 class="text-3xl font-bold text-blue-500 tracking-wide drop-shadow-sm">Monitora Já</h1>
+    <a href="/urls/" class="text-sm text-gray-300 hover:text-blue-400 hover:underline transition">← Voltar para lista</a>
   </header>
 
   <!-- 📝 Formulário -->
-  <main class="flex-grow flex items-center justify-center py-10 px-4">
-    <div class="bg-gray-800 rounded-2xl p-10 max-w-xl w-full shadow-lg border border-gray-700">
+  <main class="flex-grow flex items-center justify-center px-4 py-10">
+    <div class="bg-gray-800 rounded-2xl p-10 max-w-xl w-full shadow-2xl border border-blue-900/20 hover:shadow-blue-700/10 transition-all duration-300">
 
-      <h2 class="text-2xl font-bold text-center text-blue-400 mb-8">Cadastrar nova URL</h2>
+      <h2 class="text-3xl font-bold text-center text-blue-400 mb-8 tracking-tight">Cadastrar nova URL</h2>
 
       <form method="post" class="space-y-6">
           {% csrf_token %}
 
           <!-- URL -->
           <div>
-            <label class="block mb-1 text-sm text-gray-300">URL</label>
-            {{ form.url|add_class:"w-full bg-gray-900 text-white rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+            <label class="block mb-1 text-sm text-gray-300 font-medium">🌐 URL do site</label>
+            {{ form.url|add_class:"w-full bg-gray-900 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" }}
             {% if form.url.errors %}
               <p class="text-red-400 text-sm mt-1">{{ form.url.errors.0 }}</p>
             {% endif %}
@@ -34,37 +34,39 @@
 
           <!-- Frequência -->
           <div>
-            <label class="block mb-1 text-sm text-gray-300">Frequência (minutos)</label>
-            {{ form.frequencia_minutos|add_class:"w-full bg-gray-900 text-white rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+            <label class="block mb-1 text-sm text-gray-300 font-medium">⏱ Frequência de verificação (minutos)</label>
+            {{ form.frequencia_minutos|add_class:"w-full bg-gray-900 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition" }}
           </div>
 
           <!-- Notificações -->
-          <div class="flex items-center gap-2">
-            {{ form.receber_notificacoes }}
-            <label class="inline-flex items-center">
-              <input type="checkbox" name="receber_notificacoes" class="form-checkbox">
-              <span class="ml-2 text-white">Receber notificações</span>
-                  As notificações avisam se a URL estiver fora do ar nos dias/horários definidos. Ideal para monitorar serviços online importantes.
-                </div>
-              </span>
-            </label>
+          <div class="bg-gray-700/40 rounded-lg px-4 py-3 border border-gray-600">
+            <div class="flex items-center gap-3 mb-2">
+              {{ form.receber_notificacoes }}
+              <span class="text-white font-medium">Receber notificações</span>
+            </div>
+            <p class="text-sm text-gray-300 leading-snug">
+              <span class="text-blue-400 font-semibold">💡</span> Você será alertado nos dias e horários definidos, mesmo que o site esteja online.
+              Ideal para acompanhamento frequente de serviços importantes.
+            </p>
           </div>
 
           <!-- Dias da semana -->
           <div>
-            <label class="block mb-1 text-sm text-gray-300">Dias para receber notificação</label>
-            {% for checkbox in form.dias_da_semana %}
-              <div class="flex items-center gap-2 mb-1">
-                {{ checkbox.tag }}
-                <label class="text-sm text-white">{{ checkbox.choice_label }}</label>
-              </div>
-            {% endfor %}
+            <label class="block mb-2 text-sm font-medium text-gray-300">📅 Dias para receber notificação:</label>
+            <div class="grid grid-cols-2 gap-x-4">
+              {% for checkbox in form.dias_da_semana %}
+                <div class="flex items-center gap-2 mb-2">
+                  {{ checkbox.tag }}
+                  <label class="text-sm text-white">{{ checkbox.choice_label }}</label>
+                </div>
+              {% endfor %}
+            </div>
           </div>
 
           <!-- Botão -->
           <button type="submit"
-                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded shadow transition">
-            Salvar URL
+                  class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white text-lg font-semibold py-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out">
+            💾 Salvar URL
           </button>
       </form>
 
