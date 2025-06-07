@@ -98,12 +98,20 @@ def registrar(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('dashboard')
+            user = form.save()
+
+            # Autenticar manualmente após criar
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            if user is not None:
+                login(request, user)
+                return redirect('monitor/dashboard.html')  # redirecione para onde quiser após login
+
     else:
         form = UserCreationForm()
-    return render(request, 'registration/registrar.html', {'form': form})
+    
+    return render(request, 'registrar.html', {'form': form})
 
 def homepage(request):
     return render(request, 'monitor/home.html')
