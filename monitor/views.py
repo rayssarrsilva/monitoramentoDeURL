@@ -106,12 +106,12 @@ def registrar(request):
             user = authenticate(username=username, password=raw_password)
             if user is not None:
                 login(request, user)
-                return redirect('dashboard.html')  # redirecione para onde quiser após login
+                return redirect('dashboard')  
 
     else:
         form = UserCreationForm()
     
-    return render(request, 'registrar.html', {'form': form})
+    return render(request, 'registration/registrar.html', {'form': form})
 
 def homepage(request):
     return render(request, 'monitor/home.html')
