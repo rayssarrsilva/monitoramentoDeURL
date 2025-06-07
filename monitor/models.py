@@ -19,7 +19,7 @@ DIAS_SEMANA = [
 
 class Url(models.Model): #torna um model
     usuario = models.ForeignKey(User, on_delete=models.CASCADE) #deleta em cascade tudo que estiver relacionado ao user
-    url = models.URLField(unique=True) # valida e não permite que a mesma URL seja cadastrada mais de uma vez
+    url = models.URLField()
     statusAtual = models.CharField(max_length=50, default='desconhecido')
     ultimaVerificacao = models.DateTimeField(null=True, blank=True)
     DataCriacao = models.DateField(auto_now_add=True) # armazena automaticamente a data/hora
@@ -29,6 +29,10 @@ class Url(models.Model): #torna um model
 
     def __str__(self):
         return self.url
+    
+    class Meta:
+        unique_together = ('usuario', 'url')
+
     
 class Notificacao(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
