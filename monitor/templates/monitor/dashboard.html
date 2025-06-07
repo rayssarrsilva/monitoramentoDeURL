@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <title>Dashboard - Monitora Já</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const link = document.getElementById('notificacao-link');
+    const badge = document.getElementById('notificacao-badge');
+
+    if (link && badge) {
+      link.addEventListener('click', () => {
+        badge.remove(); // oculta badge ao clicar
+      });
+    }
+  });
+</script>
 </head>
 <body class="bg-gray-900 text-white font-sans min-h-screen flex flex-col">
 
@@ -47,8 +59,19 @@
         <p class="text-gray-300 text-sm">Gerencie suas URLs monitoradas</p>
       </a>
 
-      <a href="/notificacoes/" class="bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition block">
-        <h3 class="text-xl font-semibold text-blue-400"> Notificações</h3>
+      <a href="/notificacoes/" id="notificacao-link"
+        class="relative bg-gray-800 hover:bg-gray-700 p-6 rounded-xl shadow transition block">
+        
+        <!-- 🔴 Badge de notificação -->
+        {% if qtd_notificacoes > 0 %}
+          <span id="notificacao-badge"
+                class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-md z-10">
+            {{ qtd_notificacoes }}
+          </span>
+        {% endif %}
+
+        <!-- Conteúdo -->
+        <h3 class="text-xl font-semibold text-blue-400">Notificações</h3>
         <p class="text-gray-300 text-sm">Veja alertas de queda de sites</p>
       </a>
 

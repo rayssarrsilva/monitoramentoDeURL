@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 import requests
 from django.utils import timezone
 from django.contrib import messages
+from .models import Notificacao
 
 
 # Create your views here.
@@ -94,9 +95,16 @@ def historico_acessos(request):
 @login_required
 def dashboard(request):
     total = Url.objects.filter(usuario=request.user).count()
-    offline = Url.objects.filter(usuario=request.user,statusAtual='offline').count()
-    online = Url.objects.filter(usuario=request.user,statusAtual='online').count()
-    return render(request, 'monitor/dashboard.html', {'total': total, 'offline': offline, 'online': online})
+    offline = Url.objects.filter(usuario=request.user, statusAtual='offline').count()
+    online = Url.objects.filter(usuario=request.user, statusAtual='online').count()
+    qtd_notificacoes = Notificacao.objects.filter(usuario=request.user).count()
+
+    return render(request, 'monitor/dashboard.html', {
+        'total': total,
+        'offline': offline,
+        'online': online,
+        'qtd_notificacoes': qtd_notificacoes
+    })
 
 def registrar(request):
     if request.method == 'POST':
