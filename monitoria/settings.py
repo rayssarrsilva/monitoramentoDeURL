@@ -137,7 +137,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler' #obrigatória para o beat funcionar com o banco de dados.
-CELERY_BROKER_URL = 'redis://redis:6379/0'
 
 INSTALLED_APPS += ['rest_framework.authtoken']
 
