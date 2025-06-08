@@ -1,11 +1,14 @@
 import os
 from celery import Celery
-from django.conf import settings
 
+# Define a configuração padrão do Django para o Celery buscar as settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'monitoria.settings')
 
+# Instancia o Celery com o nome do seu projeto
 app = Celery('monitoria')
+
+# Lê todas as configurações que começam com 'CELERY_' do settings.py
 app.config_from_object('django.conf:settings', namespace='CELERY')
+
+# Descobre automaticamente tasks dentro dos apps registrados
 app.autodiscover_tasks()
-app = Celery('monitoria')
-app.conf.broker_url = settings.CELERY_BROKER_URL

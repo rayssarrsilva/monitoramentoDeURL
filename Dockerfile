@@ -2,18 +2,18 @@ FROM python:3.11-slim
 
 WORKDIR /code
 
+# Instala dependências
 COPY requirements.txt /code/
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copia o restante do projeto
 COPY . /code/
 
-# Copia o entrypoint
+# Copia e configura o entrypoint
 COPY entrypoint.sh /entrypoint.sh
-
-# Torna executável (importante pro Render)
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 8000
 
-# Usa o entrypoint para rodar tudo corretamente
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Usa o entrypoint customizado
+ENTRYPOINT ["/entrypoint.sh"]
