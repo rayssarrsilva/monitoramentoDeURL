@@ -15,5 +15,8 @@ RUN chmod +x /entrypoint.sh
 
 EXPOSE 8000
 
+COPY start_worker.sh /start_worker.sh
+RUN chmod +x /start_worker.sh
+
 # Usa o entrypoint customizado
 ENTRYPOINT ["/entrypoint.sh"]
