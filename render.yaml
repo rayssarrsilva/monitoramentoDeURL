@@ -18,9 +18,15 @@ services:
           name: monitoria-redis
           type: redis
 
+  - type: web
+    name: monitoria-worker
+    env: docker
+    plan: free
+    autoDeploy: false
+    startCommand: celery -A monitoria worker --loglevel=info & python worker_dummy_server.py
+
 databases:
   - name: monitoria-db
 
-  # Redis como serviço adicional
   - name: monitoria-redis
     type: redis
