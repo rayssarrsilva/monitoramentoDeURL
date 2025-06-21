@@ -18,5 +18,8 @@ EXPOSE 8000
 COPY start_worker.sh /start_worker.sh
 RUN chmod +x /start_worker.sh
 
+COPY start_beat.sh /start_beat.sh
+RUN chmod +x /start_beat.sh
+
 # Usa o entrypoint customizado
 ENTRYPOINT ["/entrypoint.sh"]
